@@ -7,7 +7,7 @@
   .round
     display: flex
     flex-direction: column
-    margin: 0 10px
+    margin: 0 40px 0 10px
 
   .updated-at
     position: fixed
@@ -37,6 +37,7 @@
   .player
     display: flex
     flex-direction: row
+    position: relative
 
     .name, .score
       height: 18px
@@ -68,5 +69,53 @@
         color: #00993c
         background-color: #dff0d8
 
+    .from
+      width: 40px
+      height: 40px
+      background-image: image-url('nw-se.svg')
+      background-repeat: no-repeat
+      background-color: transparent
+      background-size: 100% 100%
+      position: absolute
+      left: -45px
+      bottom: 11px
+      opacity: 0.2
+      
+    &.from-higher
+      .from
+        transform: scale(1, 1.7)
+        transform-origin: bottom
+
     & + .player
       border-top: 1px solid #CCC
+
+      .from
+        background-image: image-url('sw-ne.svg')
+        bottom: initial
+        top: 11px
+        opacity: 1
+      
+      &.from-lower
+        .from
+          transform: scale(1, 1.7)
+          transform-origin: top
+  
+  // first match of round
+  &.first
+    // first player
+    .player:first-child
+      .from
+        opacity: 1
+
+      &:not(.from-lower)
+        .from
+          background-image: none
+          border-bottom: 1px solid #000
+      
+      &.from-lower
+        .from
+          background-image: image-url('sw-ne.svg')
+          transform: scale(1, 0.55)
+          transform-origin: top
+          bottom: initial
+          top: 11px
