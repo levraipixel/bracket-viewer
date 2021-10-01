@@ -10,25 +10,63 @@
     margin: 0 10px
 
   .updated-at
-    position: absolute
-    bottom: 10px
-    left: 10px
+    position: fixed
+    bottom: 0
+    left: 0
+    padding: 5px 10px
+    background: #000
+    color: #fff
+    width: 100%
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.25)
+    font-family: monospace
+
+.round
+  h3
+    background-color: #f8f8f8
+    padding: 10px
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25), 0 1px 1px 0 rgba(0, 0, 0, 0.19), 0 2px 1px -1px rgba(0, 0, 0, 0.17)
 
 .match
   display: flex
   flex-direction: column
-  border: 1px solid black
   margin: 10px 0
+  border: 1px solid #CCC
+  background-color: #FFF
+  font-family: monospace
 
   .player
     display: flex
     flex-direction: row
 
+    .name, .score
+      height: 18px
+      line-height: 18px
+      padding: 2px 4px
+
     .name
-      font-weight: bold
-      width: 100px
-      overflow: hidden
+      width: 140px
+      overflow-x: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
 
     .score
-      width: 20px
+      width: 24px
+      border-left: 1px solid #CCC
+      text-align: center
 
+    &.loser
+      .score
+        background-color: #F8F8F8
+        color: #777
+
+    &.winner
+      font-weight: bold
+
+      .name
+        
+      .score
+        color: #00993c
+        background-color: #dff0d8
+
+    & + .player
+      border-top: 1px solid #CCC

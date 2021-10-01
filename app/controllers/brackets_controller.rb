@@ -10,7 +10,16 @@ class BracketsController < ApplicationController
 
   private
 
-  def show_html; end
+  def show_html
+    spreadsheet_id = params[:spreadsheet_id]
+
+    service = Google::Apis::SheetsV4::SheetsService.new
+    service.key = ENV['GOOGLE_API_KEY']
+    response = service.get_spreadsheet spreadsheet_id
+
+    @spreadsheet_url = response.spreadsheet_url
+    @spreadsheet_title = response.properties.title
+  end
 
   def show_json
     # TODO: check that ID is alphanumerical

@@ -8,10 +8,17 @@ const fetchBracket = (bracketUrl, callback) => {
 
 const renderMatch = (match) => {
   let $result = $('<div>').addClass('match');
-  match.forEach(player => {
+  match.forEach((player, index) => {
     let $player = $('<div class="player">');
     $player.append($('<div class="name">').html(player[0]));
     $player.append($('<div class="score">').html(player[1]));
+    if(match[index][1] > match[(1 + index) % 2][1]) {
+      $player.addClass('winner');
+    } else {
+      if(match[index][1] < match[(1 + index) % 2][1]) {
+        $player.addClass('loser');
+      }
+    }
     $result.append($player);
   });
   return $result;
@@ -21,7 +28,7 @@ const renderBracket = (bracket) => {
   let $result = $('<div>').addClass('bracket');
   bracket.forEach((round, roundIdx) => {
     let $round = $('<div>').addClass('round');
-    $round.append($('<h1>').html('Round ' + roundIdx));
+    $round.append($('<h3>').html('Round ' + roundIdx));
     round.forEach(match => {
       $round.append(renderMatch(match));
     });
@@ -59,7 +66,7 @@ const initElement = (el) => {
   };
 
   update();
-  setInterval(update, 30 * 1000);
+  // setInterval(update, 30 * 1000);
 };
 
 $(document).ready(() => {
