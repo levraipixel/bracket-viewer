@@ -8,33 +8,47 @@ const fetchBracket = (bracketUrl, callback) => {
 
 const renderMatch = (match, matchIdx, bracket, roundIdx) => {
   let $result = $('<div>').addClass('match');
-  if(matchIdx < 1) {
+  const isFirstMatch = matchIdx == 0;
+  const isLastMatch = matchIdx == bracket[roundIdx].length - 1;
+  const isFirstRound = roundIdx == 0;
+
+  if(isFirstMatch) {
     $result.addClass('first');
+  }
+  if(isLastMatch) {
+    $result.addClass('last');
   }
   match.forEach((player, playerIdx) => {
     let $player = $('<div class="player">');
     let playerName = player[0];
-    if(roundIdx > 0 && playerName) {
+    const isFirstPlayer = playerIdx == 0;
+    const isSecondPlayer = !isFirstPlayer;
+
+    if(!isFirstRound && playerName) {
       let previousRound = bracket[roundIdx - 1];
       let $from = $('<div class="from">');
 
-      if(playerIdx < 1) {
-        if(matchIdx < 1) {
+      if(isFirstPlayer) {
+        if(isFirstMatch) {
           let playerPreviousMatch = previousRound[matchIdx];
           console.log('previous match for', playerName, 'is', playerPreviousMatch);
           if(playerName == playerPreviousMatch[1][0]) {
             $player.addClass('from-lower');
           }
         } else {
-          if(matchIdx > 0) {
-            let playerPreviousMatch = previousRound[matchIdx - 1];
-            if(playerName == playerPreviousMatch[0][0]) {
-              $player.addClass('from-higher');
-            }
+          let playerPreviousMatch = previousRound[matchIdx - 1];
+          if(playerName == playerPreviousMatch[0][0]) {
+            $player.addClass('from-higher');
           }
         }
       } else {
-        if(matchIdx < (previousRound.length - 1)) {
+        if(isLastMatch) {
+          let playerPreviousMatch = previousRound[matchIdx];
+          console.log('previous match for', playerName, 'is', playerPreviousMatch);
+          if(playerName == playerPreviousMatch[0][0]) {
+            $player.addClass('from-higher');
+          }
+        } else {
           let playerPreviousMatch = previousRound[matchIdx + 1];
           if(playerName == playerPreviousMatch[1][0]) {
             $player.addClass('from-lower');

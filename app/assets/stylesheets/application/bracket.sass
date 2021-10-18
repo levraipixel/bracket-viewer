@@ -119,3 +119,24 @@
           transform-origin: top
           bottom: initial
           top: 11px
+
+  // last match of round
+  &.last
+    // last player
+    .player:last-child
+      .from
+        opacity: 0.2
+    
+      &:not(.from-higher)
+        .from
+          height: 0
+          background-image: none
+          border-bottom: 1px solid #000
+      
+      &.from-higher
+        .from
+          background-image: image-url('nw-se.svg')
+          transform: scale(1, 0.55)
+          transform-origin: bottom
+          top: initial
+          bottom: 11px
